@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: "@three-ws/avatar-cli"
+abstract: "Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests from your shell or CI."
+version: 0.2.2
+license: Apache-2.0
+repository-code: "https://github.com/nirholas/avatar-cli"
+url: "https://three.ws"
+authors:
+  - name: three.ws
+    website: "https://three.ws"

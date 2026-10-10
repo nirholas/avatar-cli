@@ -1,0 +1,19 @@
+# @three-ws/avatar-cli
+
+> Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests from your shell or CI.
+
+@three-ws/avatar-cli is a JavaScript library from three.ws. Install: `npx -y @three-ws/avatar-cli`.
+
+## Docs
+
+- [README](https://github.com/nirholas/avatar-cli/blob/main/README.md): install, configuration, full reference
+- [Documentation site](https://nirholas.github.io/avatar-cli/): the README as a web page
+- [Full text for LLMs](https://nirholas.github.io/avatar-cli/llms-full.txt): README inlined
+- [AGENTS.md](https://github.com/nirholas/avatar-cli/blob/main/AGENTS.md): guidance for coding agents
+
+## Project
+
+- [Source](https://github.com/nirholas/avatar-cli)
+- [npm](https://www.npmjs.com/package/@three-ws/avatar-cli)
+- [three.ws](https://three.ws): the platform this is part of
+- [Issues](https://github.com/nirholas/avatar-cli/issues)

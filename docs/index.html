@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>@three-ws/avatar-cli: Terminal-native tooling for on-chain avatars</title>
+<meta name="description" content="Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests from your shell or CI.">
+<link rel="canonical" href="https://nirholas.github.io/avatar-cli/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="three.ws">
+<meta property="og:title" content="@three-ws/avatar-cli">
+<meta property="og:description" content="Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests from your shell or CI.">
+<meta property="og:url" content="https://nirholas.github.io/avatar-cli/">
+<meta property="og:image" content="https://nirholas.github.io/avatar-cli/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="@three-ws/avatar-cli">
+<meta name="twitter:description" content="Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests from your shell or CI.">
+<meta name="twitter:image" content="https://nirholas.github.io/avatar-cli/og.png">
+<meta name="keywords" content="three.ws, avatar, cli, on-chain, web3, ens, caip, scaffold, manifest, readyplayerme-alternative, ai-agents">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="icon" href="https://three.ws/three-ws-mcp-icon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"@three-ws/avatar-cli","description":"Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests from your shell or CI.","codeRepository":"https://github.com/nirholas/avatar-cli","programmingLanguage":"JavaScript","license":"https://spdx.org/licenses/Apache-2.0.html","version":"0.2.2","url":"https://nirholas.github.io/avatar-cli/","author":{"@type":"Organization","name":"three.ws","url":"https://three.ws"},"keywords":"three.ws, avatar, cli, on-chain, web3, ens, caip, scaffold, manifest, readyplayerme-alternative, ai-agents"}</script>
+<style>:root{--bg:#fff;--fg:#111418;--mut:#586069;--line:#e3e6ea;--acc:#2563eb;--code:#f4f6f8;--card:#fafbfc}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0d10;--fg:#e8eaed;--mut:#9aa3ad;--line:#232830;--acc:#6ea0ff;--code:#14181d;--card:#10141a}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--acc)}a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
+header.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-weight:700;text-decoration:none;color:var(--fg)}
+.bar nav{margin-left:auto;display:flex;gap:16px;font-size:14px}
+.bar nav a{color:var(--mut);text-decoration:none;transition:color .15s}.bar nav a:hover{color:var(--fg)}
+.hero{max-width:1100px;margin:0 auto;padding:48px 16px 24px}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+.hero p{color:var(--mut);max-width:70ch;font-size:18px;margin:0 0 24px}
+.install{display:flex;align-items:center;gap:8px;max-width:620px;background:var(--code);border:1px solid var(--line);border-radius:10px;padding:6px 6px 6px 14px}
+.install code{flex:1;overflow-x:auto;white-space:nowrap;font:14px ui-monospace,SFMono-Regular,Menlo,monospace}
+.install button{border:0;background:var(--acc);color:#fff;border-radius:7px;padding:8px 14px;font:600 13px system-ui;cursor:pointer;transition:transform .12s,opacity .12s}
+.install button:hover{opacity:.9}.install button:active{transform:scale(.96)}
+.cta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.cta a{padding:9px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;color:var(--fg);transition:border-color .15s,transform .15s}
+.cta a:hover{border-color:var(--acc);transform:translateY(-1px)}.cta a.pri{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.layout{max-width:1100px;margin:0 auto;padding:8px 16px 64px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:40px}
+@media(max-width:860px){.layout{grid-template-columns:minmax(0,1fr)}.toc{display:none}}
+.toc{position:sticky;top:76px;align-self:start;font-size:14px;border-left:1px solid var(--line);padding-left:16px}
+.toc p{margin:0 0 8px;font-weight:700;color:var(--mut);text-transform:uppercase;font-size:12px;letter-spacing:.06em}
+.toc ul{list-style:none;margin:0;padding:0}.toc li{margin:6px 0}.toc a{color:var(--mut);text-decoration:none}.toc a:hover{color:var(--fg)}
+main{min-width:0;overflow-wrap:anywhere}main pre code{overflow-wrap:normal}main img{max-width:100%;height:auto}
+main h2{margin-top:2.2em;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.anchor{margin-left:-1.1em;padding-right:.4em;text-decoration:none;opacity:0;color:var(--mut)}h2:hover .anchor,h3:hover .anchor,h4:hover .anchor{opacity:1}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.5}
+code{font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);padding:.15em .35em;border-radius:5px}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}th,td{border:1px solid var(--line);padding:8px 12px;text-align:left}th{background:var(--card)}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:4px solid var(--line);color:var(--mut)}
+footer{border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+.foot-in{max-width:1100px;margin:0 auto;padding:24px 16px;display:flex;gap:16px;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+<a class="brand" href="https://nirholas.github.io/avatar-cli/">@three-ws/avatar-cli</a>
+<nav aria-label="Project links"><a href="https://github.com/nirholas/avatar-cli">GitHub</a><a href="https://www.npmjs.com/package/@three-ws/avatar-cli">npm</a><a href="llms.txt">llms.txt</a><a href="https://three.ws">three.ws</a></nav>
+</div></header>
+<section class="hero">
+<h1>@three-ws/avatar-cli</h1>
+<p>Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests from your shell or CI.</p>
+<div class="install" role="group" aria-label="Install command"><code>npx -y @three-ws/avatar-cli</code><button type="button" data-copy="npx -y @three-ws/avatar-cli">Copy</button></div>
+<div class="cta"><a class="pri" href="https://github.com/nirholas/avatar-cli">View on GitHub</a><a href="https://github.com/nirholas/avatar-cli/stargazers">Star the repo</a></div>
+</section>
+<div class="layout">
+<main id="content"><p align="center"><strong>Terminal-native tooling for on-chain avatars: scaffold, validate, hash, and preview avatar manifests.</strong></p><p align="center">
+  <a href="https://www.npmjs.com/package/@three-ws/avatar-cli"><img alt="npm" src="https://img.shields.io/npm/v/@three-ws/avatar-cli?logo=npm&color=cb3837"></a>
+  <a href="https://www.npmjs.com/package/@three-ws/avatar-cli"><img alt="downloads" src="https://img.shields.io/npm/dm/@three-ws/avatar-cli?color=cb3837"></a>
+  <img alt="license" src="https://img.shields.io/npm/l/@three-ws/avatar-cli?color=3b82f6">
+  <img alt="node" src="https://img.shields.io/node/v/@three-ws/avatar-cli?color=339933&logo=node.js">
+</p><p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#commands">Commands</a> ·
+  <a href="#ci-usage">CI usage</a> ·
+  <a href="https://three.ws">three.ws</a>
+</p><hr>
+<blockquote>
+<p><code>@three-ws/avatar-cli</code> brings the three.ws on-chain avatar workflow to your shell
+and CI. It scaffolds spec-compliant manifests from a wallet and a mesh file,
+validates existing manifests, computes content-addressing hashes, and prints
+embeddable preview snippets. Every command runs offline against
+<a href="https://www.npmjs.com/package/@three-ws/avatar-schema"><code>@three-ws/avatar-schema</code></a>
+— no service to sign up for, no browser required.</p>
+</blockquote>
+<h2 id="install"><a class="anchor" href="#install" aria-label="Link to this section">#</a>Install</h2>
+<pre><code class="language-bash"># run a single command without installing
+npx @three-ws/avatar-cli --help
+
+# or install globally
+npm install -g @three-ws/avatar-cli
+three-ws-avatar --help
+</code></pre>
+<p>The binary is <code>three-ws-avatar</code>. <code>--version</code> prints the package version; <code>--help</code> /
+<code>-h</code> prints usage.</p>
+<h2 id="quick-start"><a class="anchor" href="#quick-start" aria-label="Link to this section">#</a>Quick start</h2>
+<pre><code class="language-bash"># 1. Grab a real rigged avatar to work with (or point --mesh at your own GLB)
+curl -sLO https://three.ws/avatars/michelle.glb
+
+# 2. Scaffold a manifest from your wallet + mesh (sha256 + size computed for you)
+three-ws-avatar init \
+  --owner eip155:1:0x742d35Cc6634C0532925a3b844Bc454e4438f44e \
+  --name &quot;Nicholas&quot; \
+  --mesh ./michelle.glb \
+  --skeleton mixamo \
+  --out manifest.json
+# → ok wrote /…/manifest.json   (validated against @three-ws/avatar-schema before writing)
+#   plus a summary line for id, skeleton, and mesh (format · size · sha256)
+
+# 3. Validate it
+three-ws-avatar validate manifest.json
+# → ok manifest.json is valid
+
+# 4. Print embed snippets
+three-ws-avatar preview manifest.json
+# → resolver URL, &lt;agent-3d&gt; element + loader, and &lt;iframe&gt; snippet
+</code></pre>
+<h2 id="commands"><a class="anchor" href="#commands" aria-label="Link to this section">#</a>Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>init</code></td>
+<td>Scaffold a new avatar manifest from a wallet and mesh file.</td>
+</tr>
+<tr>
+<td><code>validate &lt;path&gt;</code></td>
+<td>Validate an existing manifest against the schema (exit 1 if invalid).</td>
+</tr>
+<tr>
+<td><code>hash &lt;path&gt;</code></td>
+<td>Compute the SHA-256 of any file, lowercase hex.</td>
+</tr>
+<tr>
+<td><code>preview &lt;path&gt;</code></td>
+<td>Print resolver URL + an embeddable <code>&lt;agent-3d&gt;</code> snippet (with its loader) and an <code>&lt;iframe&gt;</code> snippet.</td>
+</tr>
+</tbody></table>
+<h3 id="init-scaffold-a-manifest"><a class="anchor" href="#init-scaffold-a-manifest" aria-label="Link to this section">#</a><code>init</code> — scaffold a manifest</h3>
+<pre><code class="language-bash">three-ws-avatar init \
+  --owner &lt;caip10|0xaddr&gt; \
+  --name &lt;string&gt; \
+  --mesh &lt;path&gt; \
+  [--skeleton avaturn|mixamo|rpm|vrm-humanoid|custom] \
+  [--mesh-uri &lt;https://… or ipfs://…&gt;] \
+  [--id &lt;override&gt;] \
+  [--out manifest.json]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Required</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--owner</code></td>
+<td>yes</td>
+<td>Full CAIP-10 (<code>eip155:1:0x…</code>) or a shorthand <code>0x…</code> address (assumed <code>eip155:1</code>).</td>
+</tr>
+<tr>
+<td><code>--name</code></td>
+<td>yes</td>
+<td>Avatar display name.</td>
+</tr>
+<tr>
+<td><code>--mesh</code></td>
+<td>yes</td>
+<td>Path to a <code>.glb</code> / <code>.gltf</code> / <code>.vrm</code> file. SHA-256, byte size, and <code>format</code> are computed/inferred automatically.</td>
+</tr>
+<tr>
+<td><code>--skeleton</code></td>
+<td>no</td>
+<td>One of <code>avaturn</code> (default) / <code>mixamo</code> / <code>rpm</code> / <code>vrm-humanoid</code> / <code>custom</code>.</td>
+</tr>
+<tr>
+<td><code>--mesh-uri</code></td>
+<td>no</td>
+<td>Public URI to reference instead of the local <code>file://</code> path (use your IPFS/S3 URL).</td>
+</tr>
+<tr>
+<td><code>--id</code></td>
+<td>no</td>
+<td>Override the id; otherwise derived from the owner&#39;s CAIP-10, or from <code>--name</code> if it&#39;s an ENS-style <code>*.eth</code> / <code>*.ws</code> / <code>*.sol</code> name.</td>
+</tr>
+<tr>
+<td><code>--out</code></td>
+<td>no</td>
+<td>Write to a file (default: print JSON to stdout).</td>
+</tr>
+</tbody></table>
+<p>The manifest is <strong>validated against <code>@three-ws/avatar-schema</code> before output</strong> — if
+you get JSON back, it&#39;s spec-compliant by definition.</p>
+<h3 id="validate-check-a-manifest"><a class="anchor" href="#validate-check-a-manifest" aria-label="Link to this section">#</a><code>validate</code> — check a manifest</h3>
+<pre><code class="language-bash">three-ws-avatar validate manifest.json           # → ok manifest.json is valid
+three-ws-avatar validate manifest.json --json    # → {&quot;valid&quot;:true,&quot;path&quot;:&quot;manifest.json&quot;}
+</code></pre>
+<p>Exit code <code>0</code> if valid, <code>1</code> otherwise. On failure, each error prints its JSON
+instance path and message (or a structured <code>errors</code> array with <code>--json</code>).</p>
+<h3 id="hash-sha-256-a-file"><a class="anchor" href="#hash-sha-256-a-file" aria-label="Link to this section">#</a><code>hash</code> — SHA-256 a file</h3>
+<pre><code class="language-bash">sha=$(three-ws-avatar hash ./michelle.glb)
+echo &quot;$sha&quot;
+# 28d788538f7b22b8e00c1d715fffc380bb06a304613d522c20523d3d6ff79bc2
+</code></pre>
+<p><code>--json</code> emits <code>{ &quot;path&quot;, &quot;sha256&quot;, &quot;bytes&quot; }</code> instead of the bare hex line.</p>
+<h3 id="preview-embed-snippets"><a class="anchor" href="#preview-embed-snippets" aria-label="Link to this section">#</a><code>preview</code> — embed snippets</h3>
+<pre><code class="language-bash">three-ws-avatar preview manifest.json
+</code></pre>
+<p>Prints three things:</p>
+<ol>
+<li>The resolver URL, <code>https://three.ws/a/{id}</code></li>
+<li>An <code>&lt;agent-3d&gt;</code> web-component snippet, together with the loader <code>&lt;script&gt;</code> that
+registers the element. Both lines are printed because <code>&lt;agent-3d&gt;</code> is an ordinary
+unknown element until that script runs, so the snippet is only complete with both.</li>
+<li>A zero-install <code>&lt;iframe&gt;</code> embed snippet</li>
+</ol>
+<p>When <code>mesh.uri</code> is still a local <code>file://</code> path, <code>preview</code> warns instead of printing a
+snippet no browser can load. Pass <code>--mesh-uri</code> to <code>init</code> to set a public URL.</p>
+<p>Use <code>--viewer http://localhost:3000</code> to target a local dev viewer, or <code>--json</code> for
+machine-readable output
+(<code>{ id, resolverUrl, loader, element, iframe, meshUri, meshIsLocal, schemaVersion }</code>).</p>
+<h2 id="ci-usage"><a class="anchor" href="#ci-usage" aria-label="Link to this section">#</a>CI usage</h2>
+<p>Avatars are content, and content belongs in a build pipeline:</p>
+<pre><code class="language-bash"># Fail the build if the mesh bytes drifted from what the manifest attests to.
+expected=$(node -p &quot;require(&#39;./manifest.json&#39;).mesh.sha256&quot;)
+actual=$(three-ws-avatar hash ./michelle.glb)
+[ &quot;$expected&quot; = &quot;$actual&quot; ] || { echo &quot;mesh hash mismatch&quot;; exit 1; }
+
+# Gate every manifest change on schema validity.
+three-ws-avatar validate manifest.json
+</code></pre>
+<h2 id="requirements"><a class="anchor" href="#requirements" aria-label="Link to this section">#</a>Requirements</h2>
+<ul>
+<li>Node <code>&gt;=18</code>.</li>
+<li>Bundled dependency: <a href="https://www.npmjs.com/package/@three-ws/avatar-schema"><code>@three-ws/avatar-schema</code></a> (used to validate every scaffolded and checked manifest).</li>
+</ul>
+<h2 id="related-packages"><a class="anchor" href="#related-packages" aria-label="Link to this section">#</a>Related packages</h2>
+<ul>
+<li><a href="https://www.npmjs.com/package/@three-ws/avatar-schema"><code>@three-ws/avatar-schema</code></a> — the manifest format this CLI scaffolds and validates.</li>
+<li><a href="https://www.npmjs.com/package/@three-ws/avatar"><code>@three-ws/avatar</code></a> is the runtime SDK behind the <code>&lt;agent-3d&gt;</code> element the <code>preview</code> snippets embed.</li>
+</ul>
+<h2 id="links"><a class="anchor" href="#links" aria-label="Link to this section">#</a>Links</h2>
+<ul>
+<li>Homepage: <a href="https://three.ws">https://three.ws</a></li>
+<li>Changelog: <a href="https://three.ws/changelog">https://three.ws/changelog</a></li>
+<li>Issues: <a href="https://github.com/nirholas/three.ws/issues">https://github.com/nirholas/three.ws/issues</a></li>
+<li>License: Apache-2.0, see <a href="https://github.com/nirholas/avatar-cli/blob/main/LICENSE">LICENSE</a></li>
+</ul>
+<hr>
+<p align="center">
+  <sub>
+    Part of the <a href="https://three.ws">three.ws</a> SDK suite — 3D AI agents, on-chain identity, and agent payments.<br/>
+    <a href="https://three.ws">Website</a> · <a href="https://three.ws/changelog">Changelog</a> · <a href="https://github.com/nirholas/three.ws">GitHub</a>
+  </sub>
+</p>
+</main>
+<nav class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#install">Install</a></li><li><a href="#quick-start">Quick start</a></li><li><a href="#commands">Commands</a></li><li><a href="#ci-usage">CI usage</a></li><li><a href="#requirements">Requirements</a></li><li><a href="#related-packages">Related packages</a></li><li><a href="#links">Links</a></li></ul></nav>
+</div>
+<footer><div class="foot-in"><span>Apache-2.0 licensed</span><a href="https://github.com/nirholas/avatar-cli/issues">Issues</a><a href="https://github.com/nirholas/avatar-cli/blob/main/CONTRIBUTING.md">Contributing</a><a href="https://github.com/nirholas/avatar-cli/security/policy">Security</a><a href="https://three.ws">Part of three.ws</a></div></footer>
+<script>document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+var t=b.getAttribute('data-copy');var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1400)};
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){})}
+else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){}a.remove()}})});</script>
+</body>
+</html>
